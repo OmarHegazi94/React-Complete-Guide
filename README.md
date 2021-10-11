@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# React-Complete-Guide
 
 **This project follows React Complete Guide course for Maximillan Each branch will represent the chapter and the coding exercise.**
 
