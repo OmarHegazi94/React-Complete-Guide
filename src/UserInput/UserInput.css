@@ -1,0 +1,13 @@
+.Input {
+  padding: 20px;
+  display: flex;
+}
+
+.Input input {
+  display: inline-block;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  margin: 0 auto;
+}

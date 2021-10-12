@@ -1,79 +1,71 @@
-import React, { Component } from 'react';
-import './App.css';
-import Person from './Person/Person.jsx'
+import React, {Component} from "react";
+import "./App.css";
+import UserInput from "./UserInput/UserInput.jsx";
+import UserOutput from "./UserOutput/UserOutput.jsx";
 
 class App extends Component {
-
   state = {
-    persons: [
-      { name: 'Omar', age: 24 },
-      { name: 'Max', age: 77 },
-      { name: 'KOKO', age: 55 }
-    ],
-    otherState: 'some other state here'
-  }
+    username: "Omar Hegazi!!!!!",
+  };
 
-  switchNameHandler = (newName) => {
+  handleUsername = (event) => {
     this.setState({
-      persons: [
-        { name: newName, age: 24 },
-        { name: 'Max', age: 77 },
-        { name: 'BOBO', age: 55 }
-      ],
-    })
-  }
-
-  nameChangedHandler = (event) => {
-    this.setState({
-      persons: [
-        { name: 'Omar', age: 24 },
-        { name: event.target.value, age: 77 },
-        { name: 'BOBO', age: 55 }
-      ],
-    })
-  }
+      username: event.target.value,
+    });
+  };
 
   render() {
-
-    // scoped styles
     const style = {
-      backgroundColor: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer'
+      border: "1px solid #ccc",
+      margin: "20px auto",
+      boxShadow: "0 0 10px #ccc",
     };
-
 
     return (
       <div className="App">
-        <h1>Hi, I'm react app</h1>
-        <button
-            onClick={() => this.switchNameHandler('Max koko')}
-            style={style}
-          >
-          Switch name
+        <button style={style} onClick={this.handleUsername}>
+          Change state
         </button>
-        <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
-        />
-        <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          clickSecondPerson={this.switchNameHandler.bind(this, 'New koko')}
-          changeName={this.nameChangedHandler}>
-          My Hobbies: Racing
-        </Person>
-        <Person
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age}
-        />
+        <UserInput username={this.state.username} changeUsername={this.handleUsername} />
+
+        <UserOutput username={this.state.username} />
+        <UserOutput />
+        <UserOutput />
+
+        <ol style={{marginTop: "100px"}}>
+          <li style={{textDecoration: "line-through"}}>Create TWO new components: UserInput and UserOutput</li>
+          <li style={{textDecoration: "line-through"}}>
+            UserInput should hold an input element, UserOutput two paragraphs
+          </li>
+          <li style={{textDecoration: "line-through"}}>
+            Output multiple UserOutput components in the App component (any paragraph texts of your choice)
+          </li>
+          <li style={{textDecoration: "line-through"}}>
+            Pass a username (of your choice) to UserOutput via props and display it there
+          </li>
+          <li style={{textDecoration: "line-through"}}>
+            Add state to the App component (=> the username) and pass the username to the UserOutput component
+          </li>
+          <li style={{textDecoration: "line-through"}}>
+            Add a method to manipulate the state (=> an event-handler method)
+          </li>
+          <li style={{textDecoration: "line-through"}}>
+            Pass the event-handler method reference to the UserInput component and bind it to the input-change event
+          </li>
+          <li style={{textDecoration: "line-through"}}>
+            Ensure that the new input entered by the user overwrites the old username passed to UserOutput
+          </li>
+          <li style={{textDecoration: "line-through"}}>
+            Add two-way-binding to your input (in UserInput) to also display the starting username
+          </li>
+          <li style={{textDecoration: "line-through"}}>
+            Add styling of your choice to your components/ elements in the components - both with inline styles and
+            stylesheets
+          </li>
+        </ol>
       </div>
     );
   }
-  //return React.createElement('div', { className: 'App' }, React.createElement('h1', null, 'Hi, I\'m react app'))
 }
-
 
 export default App;
