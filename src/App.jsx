@@ -1,101 +1,72 @@
 import React, {Component} from "react";
 import "./App.css";
-import Person from "./Person/Person.jsx";
+import CharComponent from "./CharComponent/CharComponent";
+import ValidationComponent from "./ValidationComponent/ValidationComponent";
 
 class App extends Component {
   state = {
-    persons: [
-      {id: "gewgew", name: "Omar", age: 24},
-      {id: "vgweasc", name: "Max", age: 77},
-      {id: "bwergew", name: "KOKO", age: 55},
-    ],
-    otherState: "some other state here",
-    showPersons: false,
+    inputValue: "",
+    splittedInput: [],
   };
 
-  nameChangedHandler = (event, id) => {
-    const personIndex = this.state.persons.findIndex((p) => {
-      return p.id === id;
-    });
-
-    // const person = Object.assign({}, this.state.persons[personIndex]);
-
-    const person = {
-      ...this.state.persons[personIndex],
-    };
-
-    person.name = event.target.value;
-
-    const persons = [...this.state.persons];
-    persons[personIndex] = person;
-
+  printWordLength = (event) => {
+    let chars = event.target.value.split("");
     this.setState({
-      persons: persons,
+      inputValue: event.target.value.length,
+      splittedInput: [...chars],
     });
   };
 
-  deletePersonHandler = (personIndex) => {
-    // const persons = this.state.persons.slice();
-    const persons = [...this.state.persons];
-    persons.splice(personIndex, 1);
-    this.setState({persons: persons});
-  };
-
-  togglePersonsHandler = () => {
-    this.setState({showPersons: !this.state.showPersons});
+  deleteChar = (index) => {
+    // console.log(index);
+    const letters = [...this.state.splittedInput];
+    letters.splice(index, 1);
+    this.setState({
+      splittedInput: letters,
+    });
   };
 
   render() {
-    // scoped styles
-    const style = {
-      backgroundColor: "white",
-      font: "inherit",
-      border: "1px solid blue",
-      padding: "8px",
-      cursor: "pointer",
-    };
-
-    let persons = null;
-
-    if (this.state.showPersons) {
-      persons = (
-        <div>
-          {this.state.persons.map((person, index) => {
-            return (
-              <Person
-                clickPerson={this.deletePersonHandler.bind(this, index)}
-                name={person.name}
-                age={person.age}
-                key={person.id}
-                changePerson={(event) => this.nameChangedHandler(event, person.id)}
-              />
-            );
-          })}
-          {/* <Person name={this.state.persons[0].name} age={this.state.persons[0].age} />
-          <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-            clickSecondPerson={this.switchNameHandler.bind(this, "New koko")}
-            changeName={this.nameChangedHandler}>
-            My Hobbies: Racing
-          </Person>
-          <Person name={this.state.persons[2].name} age={this.state.persons[2].age} /> */}
-        </div>
-      );
-    }
-
     return (
       <div className="App">
-        <h1>Hi, I'm react app</h1>
-        <button onClick={this.togglePersonsHandler} style={style}>
-          Toggle Perons
-        </button>
+        <input
+          type="text"
+          onChange={(event) => {
+            this.printWordLength(event);
+          }}
+        />
+        <ValidationComponent textLength={this.state.inputValue} />
+        <p>{this.state.inputValue}</p>
 
-        {persons}
+        {this.state.splittedInput.map((char, index) => {
+          return <CharComponent clickChar={this.deleteChar.bind(this, index)} letter={char} key={index} />;
+        })}
+
+        <ol>
+          <li>
+            Create an input field (in App component) with a change listener which outputs the length of the entered text
+            below it (e.g. in a paragraph).
+          </li>
+          <li>Create a new component (=> ValidationComponent) which receives the text length as a prop</li>
+          <li>
+            Inside the ValidationComponent, either output "Text too short" or "Text long enough" depending on the text
+            length (e.g. take 5 as a minimum length)
+          </li>
+          <li>
+            Create another component (=> CharComponent) and style it as an inline box (=> display: inline-block,
+            padding: 16px, text-align: center, margin: 16px, border: 1px solid black).
+          </li>
+          <li>
+            Render a list of CharComponents where each CharComponent receives a different letter of the entered text (in
+            the initial input field) as a prop.
+          </li>
+          <li>When you click a CharComponent, it should be removed from the entered text.</li>
+        </ol>
+        <p>Hint: Keep in mind that JavaScript strings are basically arrays!</p>
+        <hr />
       </div>
     );
   }
-  //return React.createElement('div', { className: 'App' }, React.createElement('h1', null, 'Hi, I\'m react app'))
 }
 
 export default App;
