@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import styled from "styled-components/macro";
-import "./App.css";
+import classes from "./App.module.css";
 import Person from "./Person/Person.jsx";
 
 const StyledButton = styled.button`
@@ -92,20 +92,20 @@ class App extends Component {
       // style.backgroundColor = "red";
     }
 
-    const classes = [];
+    const assignedClasses = [];
 
     if (this.state.persons.length <= 2) {
-      classes.push("red"); // classes = ['red']
+      assignedClasses.push(classes.red); // classes = ['red']
     }
 
     if (this.state.persons.length <= 1) {
-      classes.push("bold"); // classes = ['red', 'bold']
+      assignedClasses.push(classes.bold); // classes = ['red', 'bold']
     }
 
     return (
-      <div className="App">
+      <div className={classes.App}>
         <h1>Hi, I'm react app</h1>
-        <p className={classes.join(" ")}>This is really working!!</p>
+        <p className={assignedClasses.join(" ")}>This is really working!!</p>
         <StyledButton alt={this.state.showPersons.toString()} onClick={this.togglePersonsHandler}>
           Toggle Perons
         </StyledButton>
