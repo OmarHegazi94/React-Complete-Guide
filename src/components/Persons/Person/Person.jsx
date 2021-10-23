@@ -2,10 +2,10 @@
 import styled from "styled-components/macro";
 
 const person = (props) => {
-  const random = Math.random();
-  if (random > 0.7) {
-    throw new Error("Somthing went wrong");
-  }
+  // const random = Math.random();
+  // if (random > 0.7) {
+  //   throw new Error("Somthing went wrong");
+  // }
   const StyledDiv = styled.div`
     width: 60%;
     margin: 20px auto;

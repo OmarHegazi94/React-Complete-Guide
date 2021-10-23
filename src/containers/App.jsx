@@ -1,21 +1,10 @@
 import React, {Component} from "react";
-import styled from "styled-components/macro";
+// import styled from "styled-components/macro";
 import classes from "./App.module.css";
-import Person from "./Person/Person.jsx";
-import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
-
-const StyledButton = styled.button`
-  background-color: ${(props) => (props.alt ? "red" : "green")};
-  color: white;
-  font: inherit;
-  border: 1px solid blue;
-  padding: 8px;
-  cursor: pointer;
-  &:hover {
-    background-color: ${(props) => (props.alt ? "salmon" : "lightgreen")};
-    color: black;
-  }
-`;
+// import Person from "../components/Persons/Person/Person.jsx";
+import Persons from "../components/Persons/Persons";
+import Cockpit from "../components/Cockpit/Cockpit";
+// import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary";
 
 class App extends Component {
   state = {
@@ -75,43 +64,35 @@ class App extends Component {
 
     if (this.state.showPersons) {
       persons = (
-        <div>
-          {this.state.persons.map((person, index) => {
+        <>
+          <Persons persons={this.state.persons} clicked={this.deletePersonHandler} changed={this.nameChangedHandler} />
+          {/* {this.state.persons.map((person, index) => {
             return (
-              <ErrorBoundary key={person.id}>
-                <Person
-                  clickPerson={this.deletePersonHandler.bind(this, index)}
-                  name={person.name}
-                  age={person.age}
-                  changePerson={(event) => this.nameChangedHandler(event, person.id)}
-                />
-              </ErrorBoundary>
+              // <ErrorBoundary key={person.id}>
+              <Person
+                key={person.id}
+                clickPerson={this.deletePersonHandler.bind(this, index)}
+                name={person.name}
+                age={person.age}
+                changePerson={(event) => this.nameChangedHandler(event, person.id)}
+              />
+              // </ErrorBoundary>
             );
-          })}
-        </div>
+          })} */}
+        </>
       );
 
       // style.backgroundColor = "red";
     }
 
-    const assignedClasses = [];
-
-    if (this.state.persons.length <= 2) {
-      assignedClasses.push(classes.red); // classes = ['red']
-    }
-
-    if (this.state.persons.length <= 1) {
-      assignedClasses.push(classes.bold); // classes = ['red', 'bold']
-    }
-
     return (
       <div className={classes.App}>
-        <h1>Hi, I'm react app</h1>
-        <p className={assignedClasses.join(" ")}>This is really working!!</p>
-        <StyledButton alt={this.state.showPersons.toString()} onClick={this.togglePersonsHandler}>
-          Toggle Perons
-        </StyledButton>
-
+        <Cockpit
+          title={this.props.appTitle}
+          persons={this.state.persons}
+          togglePerson={this.togglePersonsHandler}
+          showPersons={this.state.showPersons}
+        />
         {persons}
       </div>
     );
