@@ -7,6 +7,11 @@ import Cockpit from "../components/Cockpit/Cockpit";
 // import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log("App.js constructor");
+    // this.state = {} // same as below it will be done for you anyway
+  }
   state = {
     persons: [
       {id: "gewgew", name: "Omar", age: 24},
@@ -16,6 +21,25 @@ class App extends Component {
     otherState: "some other state here",
     showPersons: false,
   };
+
+  static getDerivedStateFromProps(props, state) {
+    console.log("App.js getDerivedStateFromProps");
+    return state;
+  }
+
+  componentDidMount() {
+    console.log("App.js componentDidMount");
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("App.js shouldComponentUpdate");
+    console.log(...arguments);
+    return true;
+  }
+
+  componentDidUpdate() {
+    console.log("App.js componentDidUpdate");
+  }
 
   nameChangedHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex((p) => {
@@ -50,6 +74,7 @@ class App extends Component {
   };
 
   render() {
+    console.log("App.js render");
     // scoped styles
     // const style = {
     //   backgroundColor: "green",
