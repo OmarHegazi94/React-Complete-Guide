@@ -1,15 +1,37 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components/macro";
 import classes from "./Cockpit.module.css";
 
-export default function Cockpit(props) {
+function Cockpit(props) {
+  useEffect(() => {
+    console.log("Cockpit.js useEffect");
+    // Fake Http request...
+    // const timer =
+    setTimeout(() => {
+      alert("Saved data to cloud!");
+    }, 1000);
+    // Runs after the first render cycle but Before the main useEffect function
+    return () => {
+      // Clean up work here
+      //   clearTimeout(timer);
+      console.log("Cockpit.js cleanup work in useEffect");
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log("Cockpit.js 2nd useEffect");
+    return () => {
+      console.log("Cockpit.js cleanup work in 2nd useEffect");
+    };
+  });
+
   const assignedClasses = [];
 
-  if (props.persons.length <= 2) {
+  if (props.personsLength <= 2) {
     assignedClasses.push(classes.red); // classes = ['red']
   }
 
-  if (props.persons.length <= 1) {
+  if (props.personsLength <= 1) {
     assignedClasses.push(classes.bold); // classes = ['red', 'bold']
   }
 
@@ -36,3 +58,5 @@ const StyledButton = styled.button`
     color: black;
   }
 `;
+
+export default React.memo(Cockpit);
