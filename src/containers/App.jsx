@@ -5,6 +5,8 @@ import classes from "./App.module.css";
 import Persons from "../components/Persons/Persons";
 import Cockpit from "../components/Cockpit/Cockpit";
 // import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary";
+import withClass from "../hoc/withClass";
+import Auxiliary from "../hoc/Auxiliary";
 
 class App extends Component {
   constructor(props) {
@@ -112,7 +114,7 @@ class App extends Component {
     }
 
     return (
-      <div className={classes.App}>
+      <Auxiliary>
         <button
           onClick={() => {
             this.setState({showCockpit: false});
@@ -128,10 +130,10 @@ class App extends Component {
           />
         ) : null}
         {persons}
-      </div>
+      </Auxiliary>
     );
   }
   //return React.createElement('div', { className: 'App' }, React.createElement('h1', null, 'Hi, I\'m react app'))
 }
 
-export default App;
+export default withClass(App, classes.App);

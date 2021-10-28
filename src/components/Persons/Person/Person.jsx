@@ -1,18 +1,22 @@
 // import "./Person.css";
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import styled from "styled-components/macro";
+
+// import Auxiliary from "../../../hoc/Auxiliary";
 
 class Person extends Component {
   render() {
     console.log("Person.js rendering..");
     return (
-      <StyledDiv>
-        <p onClick={this.props.clickPerson}>
-          I'm {this.props.name} and I'm {this.props.age}
-        </p>
-        <p>{this.props.children}</p>
-        <input type="text" onChange={this.props.changePerson} value={this.props.name} />
-      </StyledDiv>
+      <Fragment>
+        <StyledDiv>
+          <p onClick={this.props.clickPerson}>
+            I'm {this.props.name} and I'm {this.props.age}
+          </p>
+          <p>{this.props.children}</p>
+          <input type="text" onChange={this.props.changePerson} value={this.props.name} />
+        </StyledDiv>
+      </Fragment>
     );
   }
 }
