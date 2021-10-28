@@ -23,6 +23,7 @@ class App extends Component {
     otherState: "some other state here",
     showPersons: false,
     showCockpit: true,
+    changeCounter: 0,
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -60,8 +61,12 @@ class App extends Component {
     const persons = [...this.state.persons];
     persons[personIndex] = person;
 
-    this.setState({
-      persons: persons,
+    // YOU CALL SET STATE Syncrunislly but it's not garanteed to finish immediatly because react controls when to update it based on free resources
+    this.setState((prevState, currentProps) => {
+      return {
+        persons: persons,
+        changeCounter: prevState.changeCounter + 1,
+      };
     });
   };
 
