@@ -1,15 +1,24 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useRef, useContext} from "react";
 import styled from "styled-components/macro";
 import classes from "./Cockpit.module.css";
+import AuthContext from "../../context/auth-context";
 
 function Cockpit(props) {
+  const toggleBtnRef = useRef(null);
+  const authContext = useContext(AuthContext);
+
+  console.log(authContext.authenticated);
+
   useEffect(() => {
     console.log("Cockpit.js useEffect");
     // Fake Http request...
     // const timer =
-    setTimeout(() => {
-      alert("Saved data to cloud!");
-    }, 1000);
+    // setTimeout(() => {
+    //   alert("Saved data to cloud!");
+    // }, 1000);
+
+    toggleBtnRef.current.click();
+
     // Runs after the first render cycle but Before the main useEffect function
     return () => {
       // Clean up work here
@@ -39,9 +48,10 @@ function Cockpit(props) {
     <>
       <h1>{props.title}</h1>
       <p className={assignedClasses.join(" ")}>This is really working!!</p>
-      <StyledButton onClick={props.togglePerson} alt={props.showPersons.toString()}>
+      <StyledButton ref={toggleBtnRef} onClick={props.togglePerson} alt={props.showPersons.toString()}>
         Toggle Perons
       </StyledButton>
+      <button onClick={authContext.login}>Login</button>
     </>
   );
 }

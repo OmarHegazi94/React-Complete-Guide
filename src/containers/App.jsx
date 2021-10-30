@@ -7,6 +7,7 @@ import Cockpit from "../components/Cockpit/Cockpit";
 // import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary";
 import withClass from "../hoc/withClass";
 import Auxiliary from "../hoc/Auxiliary";
+import AuthContext from "../context/auth-context";
 
 class App extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class App extends Component {
     showPersons: false,
     showCockpit: true,
     changeCounter: 0,
+    authenticated: false,
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -81,6 +83,10 @@ class App extends Component {
     this.setState({showPersons: !this.state.showPersons});
   };
 
+  loginHandler = () => {
+    this.setState({authenticated: true});
+  };
+
   render() {
     console.log("App.js render");
     // scoped styles
@@ -126,15 +132,17 @@ class App extends Component {
           }}>
           show cockpit
         </button>
-        {this.state.showCockpit ? (
-          <Cockpit
-            title={this.props.appTitle}
-            personsLength={this.state.persons.length}
-            togglePerson={this.togglePersonsHandler}
-            showPersons={this.state.showPersons}
-          />
-        ) : null}
-        {persons}
+        <AuthContext.Provider value={{authenticated: this.state.authenticated, login: this.loginHandler}}>
+          {this.state.showCockpit ? (
+            <Cockpit
+              title={this.props.appTitle}
+              personsLength={this.state.persons.length}
+              togglePerson={this.togglePersonsHandler}
+              showPersons={this.state.showPersons}
+            />
+          ) : null}
+          {persons}
+        </AuthContext.Provider>
       </Auxiliary>
     );
   }
