@@ -18,6 +18,10 @@ function OrderSummary(props) {
       <ul>{ingredientSummary}</ul>
       <p>Continue to checkout?</p>
 
+      <p>
+        <strong>Total price:</strong> ${props.price.toFixed(2)}
+      </p>
+
       <Button btnType="Danger" clicked={props.purchaseCanceled}>
         Cancel
       </Button>
