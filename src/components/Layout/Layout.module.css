@@ -1,3 +1,10 @@
 .Content {
   margin-top: 16px;
 }
+
+main {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  justify-content: space-between;
+}
